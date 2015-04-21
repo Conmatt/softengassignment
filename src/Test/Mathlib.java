@@ -1,6 +1,9 @@
 /**
  * Created by Connor on 20/04/15.
  */
+
+package um.edu.mt;
+
 public class Mathlib {
 
     public Mathlib() {

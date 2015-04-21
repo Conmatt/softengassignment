@@ -2,13 +2,12 @@ import java.util.HashMap;
 
 public class AccountDatabase {
 
-	private HashMap<Integer, Account> map;
+	private static HashMap<Integer, Account> map = new HashMap<>();
 	
-	public AccountDatabase() {
-		this.database = new HashMap<>();
+	private AccountDatabase() {
 	}
 	
-	public void addAccount(Account newAccount) {
+	public static void addAccount(Account newAccount) {
 	
 		int number = newAccount.getNumber();
 		
@@ -18,6 +17,10 @@ public class AccountDatabase {
 		else {
 			map.push(number, newAccount);
 		}
+	}
+	
+	public static Account getAccount(int accountNumber) {
+		return map.get(accountNumber);
 	}
 }
 

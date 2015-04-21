@@ -2,6 +2,8 @@
  * Created by Connor on 09/04/15.
  */
 
+packagae um.edu.mt;
+
 import org.junit.Assert;
 import org.junit.Test;
 
