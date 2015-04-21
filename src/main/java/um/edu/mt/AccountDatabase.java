@@ -14,7 +14,7 @@ public class AccountDatabase {
 		Integer number = new Integer(newAccount.getNumber());
 		
 		if(map.containsKey(number)) {
-			System.out.println("ERROR: Account Number Unavailable");
+			System.out.println("ERROR: Account number anavailable");
 			return false;
 		}
 		else {
@@ -33,6 +33,10 @@ public class AccountDatabase {
 		else {
 			return null;
 		}
+	}
+	
+	public static void commit(int number, Account update) {
+		map.replace(new Integer(number), update);
 	}
 }
 
