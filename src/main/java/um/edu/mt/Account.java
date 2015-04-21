@@ -31,9 +31,11 @@ public class Account {
 		this.lastTransaction = time;
 	}
 	
+	/*
 	public boolean isLocked() { //Checks whether the account has been involved in a transaction in the past fifteen seconds
-		return (Date.getTime()
+	}
 	
 	public boolean adjustBalance(long amount) {
 	}
+	/*
 }
