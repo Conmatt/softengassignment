@@ -73,7 +73,9 @@ public class TestSuite {
 		boolean ret = TransactionManager.processTransaction(0, 1, 10000);
 		
 		//Check that balances remain unchanged
-		refreshVars();
+		acc1 = AccountDatabase.getAccount(0);
+		acc3 = AccountDatabase.getAccount(1);
+		
 		Assert.assertEquals(6000, acc1.getBalance());
 		Assert.assertEquals(5000, acc3.getBalance());
 		Assert.assertEquals(1, TransactionManager.getCount());
