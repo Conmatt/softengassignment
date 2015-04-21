@@ -13,7 +13,7 @@ public class AccountDatabase {
 	
 		Integer number = new Integer(newAccount.getNumber());
 		
-		if(map.containsKey(number) {
+		if(map.containsKey(number)) {
 			System.out.println("ERROR: Account Number Unavailable");
 		}
 		else {
