@@ -38,5 +38,6 @@ public class Account {
 	
 	public boolean adjustBalance(long amount) {
         this.accountBalance += amount;
+        return true;
 	}
 }
