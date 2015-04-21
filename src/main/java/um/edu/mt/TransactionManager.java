@@ -1,3 +1,5 @@
+package um.edu.mt;
+
 public class TransactionManager {
 
 	private static int numTransactionsProcessed = 0;
