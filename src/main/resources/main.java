@@ -1,4 +1,4 @@
-package test;
+package CPS2002;
 
 /**
  * Created by Matt on 21/04/15.
