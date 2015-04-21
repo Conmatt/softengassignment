@@ -8,7 +8,7 @@ import org.junit.Test;
 public class MathlibTest {
 
     @Test
-    public static void main(String [] args) {
+    public void mathTest() {
         int add = Mathlib.add(2,2);
         int mul = Mathlib.mul(9, 2);
         long fact = Mathlib.fact(10);
