@@ -9,15 +9,17 @@ public class AccountDatabase {
 	private AccountDatabase() {
 	}
 	
-	public static void addAccount(Account newAccount) {
+	public static boolean addAccount(Account newAccount) {
 	
 		Integer number = new Integer(newAccount.getNumber());
 		
 		if(map.containsKey(number)) {
 			System.out.println("ERROR: Account Number Unavailable");
+			return false;
 		}
 		else {
 			map.put(number, newAccount);
+			return true;
 		}
 	}
 	
