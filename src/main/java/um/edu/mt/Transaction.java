@@ -22,6 +22,9 @@ public class Transaction {
 		
 		if(src.adjustBalance(-this.amount)) {
 			dest.adjustBalance(this.amount);
+			System.out.println(dest.getName());
+			System.out.println(dest.getNumber());
+			System.out.println(dest.getBalance());
 			return true;
 		}
 		else {
