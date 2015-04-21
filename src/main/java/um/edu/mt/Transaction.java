@@ -15,8 +15,13 @@ public class Transaction {
 		Account src = AccountDatabase.getAccount(sourceAccountNumber);
 		Account dest = AccountDatabase.getAccount(destinationAccountNumber);
 		
-		if(src.adjustBalance(-amount)) {
-			dest.adjustBalance(amount);
+		if(src == null || dest == null) {
+			System.out.println("ERROR: Invalid account number(s) specified");
+			return false;
+		} 
+		
+		if(src.adjustBalance(-this.amount)) {
+			dest.adjustBalance(this.amount);
 			return true;
 		}
 		else {

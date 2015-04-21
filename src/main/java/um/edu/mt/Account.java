@@ -37,7 +37,14 @@ public class Account {
      */
 	
 	public boolean adjustBalance(long amount) {
-        this.accountBalance += amount;
-        return true;
+        long newBalance = this.accountBalance + amount;
+        
+        if(newbalance < 0) {
+            return false;
+        }
+        else {
+            this.accountBalance = newBalance;
+            return true;
+        }
 	}
 }

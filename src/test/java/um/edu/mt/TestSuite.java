@@ -53,4 +53,64 @@ public class TestSuite {
 		
 		Assert.assertEquals(ret, null);
 	}
+	
+	//Transaction success
+	@Test
+	public void transactionSuccess() {
+		boolean ret = TransactionManager.processTransaction(1, 0, 5000);
+		
+		Assert.assertEquals(acc1.getBalance(), 6000);
+		Assert.assertEquals(acc3.getBalance(), 5000);
+		Assert.assertEquals(TransactionManager.getCount(), 1);
+		
+		Assert.assertEquals(ret, true);
+	}
+	
+	//Transaction with insufficient balance
+	@Test
+	public void transactionInsufficientBalance() {
+		boolean ret = TransactionManager.processTransaction(0, 1, 10000);
+		
+		//Check that balances remain unchanged
+		Assert.assertEquals(acc1.getBalance(), 6000);
+		Assert.assertEquals(acc3.getBalance(), 5000);
+		Assert.assertEquals(TransactionManager.getCount(), 1);
+		
+		Assert.assertEquals(ret, false);
+	}
+	
+	//Transaction with invalid account number specified
+	@Test
+	public void transactionInvalid() {
+		boolean ret = TransactionManager.processTransaction(0, 70, 10000);
+		
+		Assert.assertEquals(acc1.getBalance(), 6000);
+		Assert.assertEquals(TransactionManager.getCount(), 1);
+		
+		Assert.assertEquals(ret, false);
+	}
+	
+	//Transaction with negative amount
+	@Test
+	public void transactionNegative() {
+		boolean ret = TransactionManager.processTransaction(0, 1, -10000);
+		
+		Assert.assertEquals(acc1.getBalance(), 6000);
+		Assert.assertEquals(acc3.getBalance(), 5000);
+		Assert.assertEquals(TransactionManager.getCount(), 1);
+		
+		Assert.assertEquals(ret, false);
+	}
+	
+	//Another successful transaction
+	@Test
+	public void transactionCountTest() {
+		boolean ret = TransactionManager.processTransaction(0, 1, 1000);
+		
+		Assert.assertEquals(acc1.getBalance(), 5000);
+		Assert.assertEquals(acc3.getBalance(), 6000);
+		Assert.assertEquals(TransactionManager.getCount(), 2);
+		
+		Assert.assertEquals(ret, true);
+	}
 }
