@@ -17,11 +17,11 @@ public class TestSuite {
 		
 		Account test = AccountDatabase.getAccount(0);
 		
-		Assert.assertEquals(test.getNumber(), 0);
-		Assert.assertEquals(test.getName(), "John Smith");
-		Assert.assertEquals(test.getBalance(), 1000);
+		Assert.assertEquals(0, test.getNumber());
+		Assert.assertEquals("John Smith", test.getName());
+		Assert.assertEquals(1000, test.getBalance());
 		
-		Assert.assertEquals(ret, true);
+		Assert.assertEquals(true, ret);
 	}
 	
 	//Forcing key collision in the hash table
@@ -29,7 +29,7 @@ public class TestSuite {
 	public void keyCollision() {
 		boolean ret = AccountDatabase.addAccount(acc2);
 		
-		Assert.assertEquals(ret, false);
+		Assert.assertEquals(false, ret);
 	}
 	
 	//Adding a second account
@@ -39,11 +39,11 @@ public class TestSuite {
 		
 		Account test = AccountDatabase.getAccount(1);
 		
-		Assert.assertEquals(test.getNumber(), 1);
-		Assert.assertEquals(test.getName(), "Jane Doe");
-		Assert.assertEquals(test.getBalance(), 10000);
+		Assert.assertEquals(1, test.getNumber());
+		Assert.assertEquals("Jane Doe", test.getName());
+		Assert.assertEquals(10000, test.getBalance());
 		
-		Assert.assertEquals(ret, true);
+		Assert.assertEquals(true, ret);
 	}
 	
 	//Retrieving an inexistent account number
@@ -51,7 +51,7 @@ public class TestSuite {
 	public void getInvalidNumber() {
 		Account ret = AccountDatabase.getAccount(70);
 		
-		Assert.assertEquals(ret, null);
+		Assert.assertEquals(null, ret);
 	}
 	
 	//Transaction success
@@ -59,11 +59,11 @@ public class TestSuite {
 	public void transactionSuccess() {
 		boolean ret = TransactionManager.processTransaction(1, 0, 5000);
 		
-		Assert.assertEquals(acc1.getBalance(), 6000);
-		Assert.assertEquals(acc3.getBalance(), 5000);
-		Assert.assertEquals(TransactionManager.getCount(), 1);
+		Assert.assertEquals(6000, acc1.getBalance());
+		Assert.assertEquals(5000, acc3.getBalance());
+		Assert.assertEquals(1, TransactionManager.getCount());
 		
-		Assert.assertEquals(ret, true);
+		Assert.assertEquals(true, ret);
 	}
 	
 	//Transaction with insufficient balance
@@ -72,11 +72,11 @@ public class TestSuite {
 		boolean ret = TransactionManager.processTransaction(0, 1, 10000);
 		
 		//Check that balances remain unchanged
-		Assert.assertEquals(acc1.getBalance(), 6000);
-		Assert.assertEquals(acc3.getBalance(), 5000);
-		Assert.assertEquals(TransactionManager.getCount(), 1);
+		Assert.assertEquals(6000, acc1.getBalance());
+		Assert.assertEquals(5000, acc3.getBalance());
+		Assert.assertEquals(1, TransactionManager.getCount());
 		
-		Assert.assertEquals(ret, false);
+		Assert.assertEquals(false, ret);
 	}
 	
 	//Transaction with invalid account number specified
@@ -84,10 +84,10 @@ public class TestSuite {
 	public void transactionInvalid() {
 		boolean ret = TransactionManager.processTransaction(0, 70, 10000);
 		
-		Assert.assertEquals(acc1.getBalance(), 6000);
-		Assert.assertEquals(TransactionManager.getCount(), 1);
+		Assert.assertEquals(6000, acc1.getBalance());
+		Assert.assertEquals(1, TransactionManager.getCount());
 		
-		Assert.assertEquals(ret, false);
+		Assert.assertEquals(false, ret);
 	}
 	
 	//Transaction with negative amount
@@ -95,11 +95,11 @@ public class TestSuite {
 	public void transactionNegative() {
 		boolean ret = TransactionManager.processTransaction(0, 1, -10000);
 		
-		Assert.assertEquals(acc1.getBalance(), 6000);
-		Assert.assertEquals(acc3.getBalance(), 5000);
-		Assert.assertEquals(TransactionManager.getCount(), 1);
+		Assert.assertEquals(6000, acc1.getBalance());
+		Assert.assertEquals(5000, acc3.getBalance());
+		Assert.assertEquals(1, TransactionManager.getCount());
 		
-		Assert.assertEquals(ret, false);
+		Assert.assertEquals(false, ret);
 	}
 	
 	//Another successful transaction
@@ -107,10 +107,10 @@ public class TestSuite {
 	public void transactionCountTest() {
 		boolean ret = TransactionManager.processTransaction(0, 1, 1000);
 		
-		Assert.assertEquals(acc1.getBalance(), 5000);
-		Assert.assertEquals(acc3.getBalance(), 6000);
-		Assert.assertEquals(TransactionManager.getCount(), 2);
+		Assert.assertEquals(5000, acc1.getBalance());
+		Assert.assertEquals(6000, acc3.getBalance());
+		Assert.assertEquals(2, TransactionManager.getCount());
 		
-		Assert.assertEquals(ret, true);
+		Assert.assertEquals(true, ret);
 	}
 }
