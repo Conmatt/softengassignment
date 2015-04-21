@@ -39,7 +39,7 @@ public class Account {
 	public boolean adjustBalance(long amount) {
         long newBalance = this.accountBalance + amount;
         
-        if(newbalance < 0) {
+        if(newBalance < 0) {
             return false;
         }
         else {
