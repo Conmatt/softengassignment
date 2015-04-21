@@ -34,8 +34,9 @@ public class Account {
 	/*
 	public boolean isLocked() { //Checks whether the account has been involved in a transaction in the past fifteen seconds
 	}
+     */
 	
 	public boolean adjustBalance(long amount) {
+        this.accountBalance += amount;
 	}
-	*/
 }

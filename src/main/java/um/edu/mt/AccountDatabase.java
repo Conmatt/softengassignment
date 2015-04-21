@@ -13,11 +13,11 @@ public class AccountDatabase {
 	
 		int number = newAccount.getNumber();
 		
-		if(map.containsKey(number)) {
+		if(map.containsKey(Integer(number))) {
 			System.out.println("ERROR: Account Number Unavailable");
 		}
 		else {
-			map.push(number, newAccount);
+			map.push(Integer(number), newAccount);
 		}
 	}
 	
@@ -27,7 +27,7 @@ public class AccountDatabase {
 			return map.get(accountNumber);
 		}
 		else {
-			return NULL;
+			return null;
 		}
 	}
 }
