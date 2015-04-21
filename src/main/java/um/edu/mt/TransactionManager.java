@@ -11,9 +11,11 @@ public class TransactionManager {
 		if(trans.process()) {
 			System.out.println("Transaction completed successfully");
 			numTransactionsProcessed++;
+			return true;
 		}
 		else {
 			System.out.println("Transaction failed");
+			return false;
 		}
 	}
 }
