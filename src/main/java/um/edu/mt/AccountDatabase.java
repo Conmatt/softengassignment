@@ -1,3 +1,5 @@
+package um.edu.mt;
+
 import java.util.HashMap;
 
 public class AccountDatabase {
@@ -11,7 +13,7 @@ public class AccountDatabase {
 	
 		int number = newAccount.getNumber();
 		
-		if(map.containsKey(number) {
+		if(map.containsKey(number)) {
 			System.out.println("ERROR: Account Number Unavailable");
 		}
 		else {
@@ -20,7 +22,13 @@ public class AccountDatabase {
 	}
 	
 	public static Account getAccount(int accountNumber) {
-		return map.get(accountNumber);
+		
+		if(map.containsKey(accountNumber)) {
+			return map.get(accountNumber);
+		}
+		else {
+			return NULL;
+		}
 	}
 }
 
