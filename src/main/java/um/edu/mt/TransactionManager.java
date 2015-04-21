@@ -24,7 +24,7 @@ public class TransactionManager {
 		}
 	}
 	
-	public int getCount() {
+	public static int getCount() {
 		return numTransactionsProcessed;
 	}
 }
