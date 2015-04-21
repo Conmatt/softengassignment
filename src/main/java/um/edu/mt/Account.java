@@ -24,7 +24,7 @@ public class Account {
 	}
 	
 	public long getBalance() {
-		return balance;
+		return accountBalance;
 	}
 	
 	public void setLastTransaction(long time) {

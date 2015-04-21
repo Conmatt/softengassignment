@@ -17,7 +17,7 @@ public class AccountDatabase {
 			System.out.println("ERROR: Account Number Unavailable");
 		}
 		else {
-			map.push(number, newAccount);
+			map.put(number, newAccount);
 		}
 	}
 	
