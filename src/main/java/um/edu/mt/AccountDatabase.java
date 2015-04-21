@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class AccountDatabase {
 
-	private static HashMap<Integer, Account> map = new HashMap<>();
+	private static HashMap<Integer, Account> map = new HashMap<Integer, Account>();
 	
 	private AccountDatabase() {
 	}
