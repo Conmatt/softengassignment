@@ -11,20 +11,22 @@ public class AccountDatabase {
 	
 	public static void addAccount(Account newAccount) {
 	
-		int number = newAccount.getNumber();
+		Integer number = new Integer(newAccount.getNumber());
 		
-		if(map.containsKey(Integer(number))) {
+		if(map.containsKey(number) {
 			System.out.println("ERROR: Account Number Unavailable");
 		}
 		else {
-			map.push(Integer(number), newAccount);
+			map.push(number, newAccount);
 		}
 	}
 	
 	public static Account getAccount(int accountNumber) {
 		
-		if(map.containsKey(accountNumber)) {
-			return map.get(accountNumber);
+        Integer number = new Integer(accountNumber);
+            
+		if(map.containsKey(number)) {
+			return map.get(number);
 		}
 		else {
 			return null;
