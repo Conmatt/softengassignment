@@ -17,7 +17,6 @@ public class Transaction {
 		
 		if(src.adjustBalance(-amount)) {
 			dest.adjustBalance(amount);
-			src.
 			return true;
 		}
 		else {
