@@ -6,12 +6,12 @@ import org.junit.Test;
 
 public class TestSuite {
 
-	AccountDatabase db;
+	AccountDatabase db = AccountDatabase.initialise();
 	TransactionManager tsm;
 	
 	@Before
 	public void initialise() {
-		 db = AccountDatabase.initialise();
+		 db.reset();
 		 tsm = new TransactionManager();
 		 
 		 db.addAccount(new Account(0, "John Doe", 1000));

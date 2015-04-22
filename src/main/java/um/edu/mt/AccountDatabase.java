@@ -25,6 +25,11 @@ public class AccountDatabase {
 		return instance;
 	}
 	
+	public static void reset() {
+		db.clear();
+		size = 0;
+	}
+	
 	public boolean addAccount(Account newAccount) {
 	
 		Integer number = new Integer(newAccount.getNumber());
