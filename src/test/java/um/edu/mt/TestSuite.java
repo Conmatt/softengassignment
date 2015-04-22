@@ -10,15 +10,12 @@ public class TestSuite {
 	AccountDatabase db;
 	TransactionManager tsm;
 	
-	@Before
-	public void initialise() {
-		acc1 = new Account(0, "John Smith", 1000);
-		acc2 = new Account(0, "John Doe", 500);
-		acc3 = new Account(1, "Jane Doe", 10000); 
+	acc1 = new Account(0, "John Smith", 1000);
+	acc2 = new Account(0, "John Doe", 500);
+	acc3 = new Account(1, "Jane Doe", 10000); 
 		
-		 db = AccountDatabase.initialise();
-		 tsm = new TransactionManager();
-	}
+	db = AccountDatabase.initialise();
+	tsm = new TransactionManager();
 	
 	//Adding an account and checking its fields
 	@Test
@@ -79,48 +76,48 @@ public class TestSuite {
 	//Transaction with insufficient balance
 	@Test
 	public void transactionInsufficientBalance() {
-		//boolean ret = tsm.processTransaction(0, 1, 10000);
+		boolean ret = tsm.processTransaction(0, 1, 10000);
 		
 		//Check that balances remain unchanged
 		Assert.assertEquals(6000, db.getAccount(0).getBalance());
 		Assert.assertEquals(5000, db.getAccount(1).getBalance());
 		Assert.assertEquals(1, tsm.getCount());
 		
-		//Assert.assertEquals(false, ret);
+		Assert.assertEquals(false, ret);
 	}
 	
 	//Transaction with invalid account number specified
 	@Test
 	public void transactionInvalid() {
-		//boolean ret = tsm.processTransaction(0, 70, 10000);
+		boolean ret = tsm.processTransaction(0, 70, 10000);
 		
 		Assert.assertEquals(6000, db.getAccount(0).getBalance());
 		Assert.assertEquals(1, tsm.getCount());
 		
-		//Assert.assertEquals(false, ret);
+		Assert.assertEquals(false, ret);
 	}
 	
 	//Transaction with negative amount
 	@Test
 	public void transactionNegative() {
-		//boolean ret = tsm.processTransaction(0, 1, -10000);
+		boolean ret = tsm.processTransaction(0, 1, -10000);
 		
 		Assert.assertEquals(6000, db.getAccount(0).getBalance());
 		Assert.assertEquals(5000, db.getAccount(1).getBalance());
 		Assert.assertEquals(1, tsm.getCount());
 		
-		//Assert.assertEquals(false, ret);
+		Assert.assertEquals(false, ret);
 	}
 	
 	//Another successful transaction
 	@Test
 	public void transactionCountTest() {
-		//boolean ret = tsm.processTransaction(0, 1, 1000);
+		boolean ret = tsm.processTransaction(0, 1, 1000);
 		
 		Assert.assertEquals(5000, db.getAccount(0).getBalance());
 		Assert.assertEquals(6000, db.getAccount(1).getBalance());
-		//Assert.assertEquals(2, tsm.getCount());
+		Assert.assertEquals(2, tsm.getCount());
 		
-		//Assert.assertEquals(true, ret);
+		Assert.assertEquals(true, ret);
 	}
 }
