@@ -126,7 +126,13 @@ public class TestSuite {
 		Assert.assertEquals(11000, db.getAccount(1).getBalance());
 		Assert.assertEquals(1, tsm.getCount());
 		
-		Thread.sleep(15000);
+		try {
+			Thread.sleep(15000);
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
 		boolean ret2 = tsm.processTransaction(1, 0, 1000);
 		
 		Assert.assertEquals(1000, db.getAccount(0).getBalance());
