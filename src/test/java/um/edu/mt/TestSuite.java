@@ -69,9 +69,8 @@ public class TestSuite {
 	public void transactionSuccess() {
 		boolean ret = tsm.processTransaction(1, 0, 5000);
 		
-		refreshVars();
-		Assert.assertEquals(6000, acc1.getBalance());
-		Assert.assertEquals(5000, acc3.getBalance());
+		Assert.assertEquals(6000, db.getAccount(0).getBalance());
+		Assert.assertEquals(5000, db.getAccount(1).getBalance());
 		Assert.assertEquals(1, tsm.getCount());
 		
 		Assert.assertEquals(true, ret);
@@ -83,9 +82,8 @@ public class TestSuite {
 		boolean ret = tsm.processTransaction(0, 1, 10000);
 		
 		//Check that balances remain unchanged
-		refreshVars();
-		Assert.assertEquals(6000, acc1.getBalance());
-		Assert.assertEquals(5000, acc3.getBalance());
+		Assert.assertEquals(6000, db.getAccount(0).getBalance());
+		Assert.assertEquals(5000, db.getAccount(1).getBalance());
 		Assert.assertEquals(1, tsm.getCount());
 		
 		Assert.assertEquals(false, ret);
@@ -96,8 +94,7 @@ public class TestSuite {
 	public void transactionInvalid() {
 		boolean ret = tsm.processTransaction(0, 70, 10000);
 		
-		refreshVars();
-		Assert.assertEquals(6000, acc1.getBalance());
+		Assert.assertEquals(6000, db.getAccount(0).getBalance());
 		Assert.assertEquals(1, tsm.getCount());
 		
 		Assert.assertEquals(false, ret);
@@ -109,8 +106,8 @@ public class TestSuite {
 		boolean ret = tsm.processTransaction(0, 1, -10000);
 		
 		refreshVars();
-		Assert.assertEquals(6000, acc1.getBalance());
-		Assert.assertEquals(5000, acc3.getBalance());
+		Assert.assertEquals(6000, db.getAccount(0).getBalance());
+		Assert.assertEquals(5000, db.getAccount(1).getBalance());
 		Assert.assertEquals(1, tsm.getCount());
 		
 		Assert.assertEquals(false, ret);
@@ -121,16 +118,10 @@ public class TestSuite {
 	public void transactionCountTest() {
 		boolean ret = tsm.processTransaction(0, 1, 1000);
 		
-		refreshVars();
-		Assert.assertEquals(5000, acc1.getBalance());
-		Assert.assertEquals(6000, acc3.getBalance());
+		Assert.assertEquals(5000, db.getAccount(0).getBalance());
+		Assert.assertEquals(6000, db.getAccount(1).getBalance());
 		Assert.assertEquals(2, tsm.getCount());
 		
 		Assert.assertEquals(true, ret);
-	}
-	
-	private void refreshVars() {
-		acc1 = db.getAccount(0);
-		acc3 = db.getAccount(1);
 	}
 }
