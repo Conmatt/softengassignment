@@ -25,7 +25,7 @@ public class AccountDatabase {
 		return instance;
 	}
 	
-	public static void reset() {
+	public void reset() {
 		db.clear();
 		size = 0;
 	}
