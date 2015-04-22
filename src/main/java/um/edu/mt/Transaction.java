@@ -22,8 +22,8 @@ public class Transaction {
 		
 		if(src.adjustBalance(-this.amount)) {
 			dest.adjustBalance(this.amount);
-			AccountDatabase.commit(src.getNumber(), src);
-			AccountDatabase.commit(dest.getNumber(), dest);
+			AccountDatabase.commit(src.getNumber(), new Account(src.getNumber(), src.getName(), src.getBalance()));
+			AccountDatabase.commit(src.getNumber(), new Account(dest.getNumber(), dest.getName(), dest.getBalance()));
 			return true;
 		}
 		else {
