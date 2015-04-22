@@ -13,6 +13,7 @@ public class Account {
 		this.accountNumber = number;
 		this.accountName = name;
 		this.accountBalance = balance;
+        this.lastTransaction = -1;
 	}
 	
 	public int getNumber() {
@@ -26,9 +27,13 @@ public class Account {
 	public long getBalance() {
 		return accountBalance;
 	}
+    
+    public long getLastTransaction() {
+        return lastTransaction;
+    }
 	
 	public void setLastTransaction(long time) {
-		this.lastTransaction = time;
+		lastTransaction = time;
 	}
 	
 	/*

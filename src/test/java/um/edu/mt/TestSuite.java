@@ -100,13 +100,33 @@ public class TestSuite {
 	}
 	
 	@Test
-	public void multipleTransactionTest() {
+	public void multipleTransactionTestFail() {
 		boolean ret1 = tsm.processTransaction(0, 1, 1000);
 		
 		Assert.assertEquals(0, db.getAccount(0).getBalance());
 		Assert.assertEquals(11000, db.getAccount(1).getBalance());
 		Assert.assertEquals(1, tsm.getCount());
 		
+		//This should fail since 15 seconds have not elapsed
+		boolean ret2 = tsm.processTransaction(1, 0, 1000);
+		
+		Assert.assertEquals(0, db.getAccount(0).getBalance());
+		Assert.assertEquals(11000, db.getAccount(1).getBalance());
+		Assert.assertEquals(1, tsm.getCount());
+		
+		Assert.assertEquals(true, ret1);
+		Assert.assertEquals(false, ret2);
+	}
+	
+	@Test
+	public void multipleTransactionTestSuccess() {
+		boolean ret1 = tsm.processTransaction(0, 1, 1000);
+		
+		Assert.assertEquals(0, db.getAccount(0).getBalance());
+		Assert.assertEquals(11000, db.getAccount(1).getBalance());
+		Assert.assertEquals(1, tsm.getCount());
+		
+		Thread.sleep(15000);
 		boolean ret2 = tsm.processTransaction(1, 0, 1000);
 		
 		Assert.assertEquals(1000, db.getAccount(0).getBalance());
