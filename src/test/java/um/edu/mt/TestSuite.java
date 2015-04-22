@@ -6,51 +6,41 @@ import org.junit.Test;
 
 public class TestSuite {
 
-	Account acc1, acc2, acc3;
 	AccountDatabase db;
 	TransactionManager tsm;
 	
-	acc1 = new Account(0, "John Smith", 1000);
-	acc2 = new Account(0, "John Doe", 500);
-	acc3 = new Account(1, "Jane Doe", 10000); 
-		
-	db = AccountDatabase.initialise();
-	tsm = new TransactionManager();
+	@Before
+	public void initialise() {
+		 db = AccountDatabase.initialise();
+		 tsm = new TransactionManager();
+		 
+		 db.AddAccount(new Account(0, "John Doe", 1000));
+		 db.AddAccount(new Account(1, "Jane Doe", 10000));
+	}
 	
-	//Adding an account and checking its fields
+	//Testing account insertion
 	@Test
-	public void addAccount() {
-		boolean ret = db.addAccount(acc1);
+	public void addAccount() {		
+		Account test1 = db.getAccount(0);
+		Account test2 = db.getAccount(1);
 		
-		Account test = db.getAccount(0);
+		Assert.assertEquals(0, test1.getNumber());
+		Assert.assertEquals("John Doe", test1.getName());
+		Assert.assertEquals(1000, test1.getBalance());
 		
-		Assert.assertEquals(0, test.getNumber());
-		Assert.assertEquals("John Smith", test.getName());
-		Assert.assertEquals(1000, test.getBalance());
+		Assert.assertEquals(1, test2.getNumber());
+		Assert.assertEquals("Jane Doe", test2.getName());
+		Assert.assertEquals(10000, test2.getBalance());
 		
-		Assert.assertEquals(true, ret);
+		Assert.assertEquals(2, db.getSize());
 	}
 	
 	//Forcing key collision in the hash table
 	@Test
 	public void keyCollision() {
-		boolean ret = db.addAccount(acc2);
+		boolean ret = db.AddAccount(new Account(0, "John Doe", 1000));
 		
 		Assert.assertEquals(false, ret);
-	}
-	
-	//Adding a second account
-	@Test
-	public void addSecondAccount() {
-		boolean ret = db.addAccount(acc3);
-		
-		Account test = db.getAccount(1);
-		
-		Assert.assertEquals(1, test.getNumber());
-		Assert.assertEquals("Jane Doe", test.getName());
-		Assert.assertEquals(10000, test.getBalance());
-		
-		Assert.assertEquals(true, ret);
 	}
 	
 	//Retrieving an inexistent account number
@@ -66,8 +56,8 @@ public class TestSuite {
 	public void transactionSuccess() {
 		boolean ret = tsm.processTransaction(1, 0, 5000);
 		
-		Assert.assertEquals(6000, db.getAccount(0).getBalance());
-		Assert.assertEquals(5000, db.getAccount(1).getBalance());
+		Assert.assertEquals(1000, db.getAccount(0).getBalance());
+		Assert.assertEquals(10000, db.getAccount(1).getBalance());
 		Assert.assertEquals(1, tsm.getCount());
 		
 		Assert.assertEquals(true, ret);
@@ -79,9 +69,9 @@ public class TestSuite {
 		boolean ret = tsm.processTransaction(0, 1, 10000);
 		
 		//Check that balances remain unchanged
-		Assert.assertEquals(6000, db.getAccount(0).getBalance());
-		Assert.assertEquals(5000, db.getAccount(1).getBalance());
-		Assert.assertEquals(1, tsm.getCount());
+		Assert.assertEquals(1000, db.getAccount(0).getBalance());
+		Assert.assertEquals(10000, db.getAccount(1).getBalance());
+		Assert.assertEquals(0, tsm.getCount());
 		
 		Assert.assertEquals(false, ret);
 	}
@@ -91,8 +81,8 @@ public class TestSuite {
 	public void transactionInvalid() {
 		boolean ret = tsm.processTransaction(0, 70, 10000);
 		
-		Assert.assertEquals(6000, db.getAccount(0).getBalance());
-		Assert.assertEquals(1, tsm.getCount());
+		Assert.assertEquals(1000, db.getAccount(0).getBalance());
+		Assert.assertEquals(0, tsm.getCount());
 		
 		Assert.assertEquals(false, ret);
 	}
@@ -102,22 +92,28 @@ public class TestSuite {
 	public void transactionNegative() {
 		boolean ret = tsm.processTransaction(0, 1, -10000);
 		
-		Assert.assertEquals(6000, db.getAccount(0).getBalance());
-		Assert.assertEquals(5000, db.getAccount(1).getBalance());
-		Assert.assertEquals(1, tsm.getCount());
+		Assert.assertEquals(1000, db.getAccount(0).getBalance());
+		Assert.assertEquals(10000, db.getAccount(1).getBalance());
+		Assert.assertEquals(0, tsm.getCount());
 		
 		Assert.assertEquals(false, ret);
 	}
 	
-	//Another successful transaction
 	@Test
-	public void transactionCountTest() {
-		boolean ret = tsm.processTransaction(0, 1, 1000);
+	public void multipleTransactionTest() {
+		boolean ret1 = tsm.processTransaction(0, 1, 1000);
 		
-		Assert.assertEquals(5000, db.getAccount(0).getBalance());
-		Assert.assertEquals(6000, db.getAccount(1).getBalance());
+		Assert.assertEquals(0, db.getAccount(0).getBalance());
+		Assert.assertEquals(11000, db.getAccount(1).getBalance());
+		Assert.assertEquals(1, tsm.getCount());
+		
+		boolean ret2 = tsm.processTransaction(1, 0, 1000);
+		
+		Assert.assertEquals(1000, db.getAccount(0).getBalance());
+		Assert.assertEquals(10000, db.getAccount(1).getBalance());
 		Assert.assertEquals(2, tsm.getCount());
 		
-		Assert.assertEquals(true, ret);
+		Assert.assertEquals(true, ret1);
+		Assert.assertEquals(true, ret2);
 	}
 }
