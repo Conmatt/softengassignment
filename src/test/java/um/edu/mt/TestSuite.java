@@ -51,18 +51,6 @@ public class TestSuite {
 		Assert.assertEquals(null, ret);
 	}
 	
-	//Transaction success
-	@Test
-	public void transactionSuccess() {
-		boolean ret = tsm.processTransaction(1, 0, 5000);
-		
-		Assert.assertEquals(6000, db.getAccount(0).getBalance());
-		Assert.assertEquals(5000, db.getAccount(1).getBalance());
-		Assert.assertEquals(1, tsm.getCount());
-		
-		Assert.assertEquals(true, ret);
-	}
-	
 	//Transaction with insufficient balance
 	@Test
 	public void transactionInsufficientBalance() {
@@ -116,6 +104,13 @@ public class TestSuite {
 		
 		Assert.assertEquals(true, ret1);
 		Assert.assertEquals(false, ret2);
+		
+		try {
+			Thread.sleep(15000);
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
