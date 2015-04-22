@@ -35,8 +35,8 @@ public class AccountDatabase {
 		}
 	}
 	
-	public static void commit(int number, Account update) {
-		map.put(new Integer(number), update);
+	public static void commit(Account update) {
+		map.put(new Integer(update.getNumber()), update);
 	}
 }
 
