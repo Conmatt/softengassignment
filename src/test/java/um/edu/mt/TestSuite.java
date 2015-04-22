@@ -56,8 +56,8 @@ public class TestSuite {
 	public void transactionSuccess() {
 		boolean ret = tsm.processTransaction(1, 0, 5000);
 		
-		Assert.assertEquals(1000, db.getAccount(0).getBalance());
-		Assert.assertEquals(10000, db.getAccount(1).getBalance());
+		Assert.assertEquals(6000, db.getAccount(0).getBalance());
+		Assert.assertEquals(5000, db.getAccount(1).getBalance());
 		Assert.assertEquals(1, tsm.getCount());
 		
 		Assert.assertEquals(true, ret);
