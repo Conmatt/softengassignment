@@ -105,7 +105,6 @@ public class TestSuite {
 	public void transactionNegative() {
 		boolean ret = tsm.processTransaction(0, 1, -10000);
 		
-		refreshVars();
 		Assert.assertEquals(6000, db.getAccount(0).getBalance());
 		Assert.assertEquals(5000, db.getAccount(1).getBalance());
 		Assert.assertEquals(1, tsm.getCount());
