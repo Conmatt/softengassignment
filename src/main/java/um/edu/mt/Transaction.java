@@ -12,8 +12,10 @@ public class Transaction {
 	}
 	
 	public boolean process() {
-		Account src = AccountDatabase.getAccount(sourceAccountNumber);
-		Account dest = AccountDatabase.getAccount(destinationAccountNumber);
+		AccountDatabase db = AccountDatabase.getInstance();
+		
+		Account src = db.getAccount(sourceAccountNumber);
+		Account dest = db.getAccount(destinationAccountNumber);
 		
 		if(src == null || dest == null) {
 			System.out.println("ERROR: Invalid account number(s) specified");
@@ -22,8 +24,8 @@ public class Transaction {
 		
 		if(src.adjustBalance(-this.amount)) {
 			dest.adjustBalance(this.amount);
-			AccountDatabase.commit(src);
-			AccountDatabase.commit(dest);
+			db.commit(src);
+			db.commit(dest);
 			return true;
 		}
 		else {

@@ -2,9 +2,13 @@ package um.edu.mt;
 
 public class TransactionManager {
 
-	private static int numTransactionsProcessed = 0;
+	private int numTransactionsProcessed;
 	
-	public static boolean processTransaction(int src, int dest, long amount) {
+	public TransactionManager() {
+		numTransaxtionProcessed = 0;
+	}
+	
+	public boolean processTransaction(int src, int dest, long amount) {
 		
 		if(amount < 0) {
 			System.out.println("ERROR: Amount of money to be transferred must be greater than or equal to zero!");
@@ -24,7 +28,7 @@ public class TransactionManager {
 		}
 	}
 	
-	public static int getCount() {
+	public int getCount() {
 		return numTransactionsProcessed;
 	}
 }
