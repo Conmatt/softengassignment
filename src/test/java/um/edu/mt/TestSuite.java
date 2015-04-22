@@ -14,8 +14,8 @@ public class TestSuite {
 		 db = AccountDatabase.initialise();
 		 tsm = new TransactionManager();
 		 
-		 db.AddAccount(new Account(0, "John Doe", 1000));
-		 db.AddAccount(new Account(1, "Jane Doe", 10000));
+		 db.addAccount(new Account(0, "John Doe", 1000));
+		 db.addAccount(new Account(1, "Jane Doe", 10000));
 	}
 	
 	//Testing account insertion
@@ -38,7 +38,7 @@ public class TestSuite {
 	//Forcing key collision in the hash table
 	@Test
 	public void keyCollision() {
-		boolean ret = db.AddAccount(new Account(0, "John Doe", 1000));
+		boolean ret = db.addAccount(new Account(0, "John Doe", 1000));
 		
 		Assert.assertEquals(false, ret);
 	}
