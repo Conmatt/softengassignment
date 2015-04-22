@@ -5,7 +5,7 @@ public class TransactionManager {
 	private int numTransactionsProcessed;
 	
 	public TransactionManager() {
-		numTransaxtionProcessed = 0;
+		numTransactionsProcessed = 0;
 	}
 	
 	public boolean processTransaction(int src, int dest, long amount) {

@@ -14,7 +14,7 @@ public class AccountDatabase {
 	}
 	
 	public static AccountDatabase initialise() {
-		if(instance = null) {
+		if(instance == null) {
 			instance = new AccountDatabase();
 		}
 		
