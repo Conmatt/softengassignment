@@ -40,5 +40,8 @@ public class CompoundTransaction extends Transaction {
 
     @Override
     public void validate() throws TransactionException {
+        if(transList.isEmpty()) {
+            throw new TransactionException(ClientStrings.TRANS_EMPTYLIST);
+        }
     }
 }

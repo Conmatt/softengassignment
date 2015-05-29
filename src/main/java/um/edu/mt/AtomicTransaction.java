@@ -58,10 +58,10 @@ public class AtomicTransaction extends Transaction {
         long sourceBalance = db.getAccount(sourceAccountNumber).getBalance();
 
         if(!(db.contains(sourceAccountNumber) && db.contains(destinationAccountNumber))) {
-            throw new TransactionException(ClientStrings.TRANS_INVALIDACC);
+            throw new TransactionException(String.format(ClientStrings.TRANS_INVALIDACC, sourceAccountNumber, destinationAccountNumber));
         }
         else if(amount < 0) {
-            throw new TransactionException(ClientStrings.TRANS_INVALIDFUNDS);
+            throw new TransactionException(String.format(ClientStrings.TRANS_INVALIDFUNDS, sourceAccountNumber));
         }
         else if(sourceBalance < amount) {
             throw new TransactionException(String.format(ClientStrings.TRANS_NOFUNDS, sourceAccountNumber, sourceBalance));

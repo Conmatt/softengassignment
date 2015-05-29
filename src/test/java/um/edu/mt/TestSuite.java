@@ -65,6 +65,18 @@ public class TestSuite {
 		
 		Assert.assertEquals(false, ret);
 	}
+
+	@Test
+	public void transactionInsufficientBalanceNew() {
+		boolean ret = tsm.processTransaction(new AtomicTransaction(0, 1, 10000));
+
+		//Check that balances remain unchanged
+		Assert.assertEquals(1000, db.getAccount(0).getBalance());
+		Assert.assertEquals(10000, db.getAccount(1).getBalance());
+		Assert.assertEquals(0, tsm.getCount());
+
+		Assert.assertEquals(false, ret);
+	}
 	
 	//Transaction with invalid account number specified
 	@Test
@@ -157,4 +169,28 @@ public class TestSuite {
 		Assert.assertEquals(1, tsm.getCount());
 		Assert.assertEquals(true, ret);
 	}
+
+	@Test
+	public void nestedCompoundTest() {
+		AtomicTransaction first = new AtomicTransaction(0, 256, 500);
+		AtomicTransaction second = new AtomicTransaction(256, 1, 1000);
+		AtomicTransaction third = new AtomicTransaction(0, 512, 500);
+
+		CompoundTransaction comp = new CompoundTransaction(first);
+		comp.add(second);
+
+		CompoundTransaction main = new CompoundTransaction(comp);
+		main.add(third);
+
+		boolean ret = tsm.processTransaction(main);
+
+		Assert.assertEquals(0, db.getAccount(0).getBalance());
+		Assert.assertEquals(4500, db.getAccount(256).getBalance());
+		Assert.assertEquals(11000, db.getAccount(1).getBalance());
+		Assert.assertEquals(3000, db.getAccount(512).getBalance());
+
+		Assert.assertEquals(1, tsm.getCount());
+		Assert.assertEquals(true, ret);
+	}
+
 }
