@@ -15,9 +15,6 @@ public class CompoundTransaction extends Transaction {
 
     @Override
     public boolean process() {
-        AccountDatabase db = AccountDatabase.getInstance();
-        Account source, destination;
-        long amount;
         boolean success = true;
 
         for(Transaction trans : transList) {

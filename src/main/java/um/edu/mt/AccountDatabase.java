@@ -35,7 +35,7 @@ public class AccountDatabase {
 		Integer number = new Integer(newAccount.getNumber());
 		
 		if(db.containsKey(number)) {
-			System.out.println("ERROR: Account number unavailable");
+			System.out.printf(ClientStrings.ACCOUNT_IDTAKEN + "\n", number);
 			return false;
 		}
 		else {

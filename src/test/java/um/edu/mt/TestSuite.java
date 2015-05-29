@@ -11,11 +11,13 @@ public class TestSuite {
 	
 	@Before
 	public void initialise() {
-		 db.reset();
-		 tsm = new TransactionManager();
+		db.reset();
+		tsm = new TransactionManager();
 		 
-		 db.addAccount(new Account(0, "John Doe", 1000));
-		 db.addAccount(new Account(1, "Jane Doe", 10000));
+		db.addAccount(new Account(0, "John Doe", 1000));
+		db.addAccount(new Account(1, "Jane Doe", 10000));
+		db.addAccount(new Account(256, "Hanx", 5000));
+		db.addAccount(new Account(512, "Slepnir", 2500));
 	}
 	
 	//Testing account insertion
@@ -32,7 +34,7 @@ public class TestSuite {
 		Assert.assertEquals("Jane Doe", test2.getName());
 		Assert.assertEquals(10000, test2.getBalance());
 		
-		Assert.assertEquals(2, db.getSize());
+		Assert.assertEquals(4, db.getSize());
 	}
 	
 	//Forcing key collision in the hash table
@@ -136,5 +138,23 @@ public class TestSuite {
 		
 		Assert.assertEquals(true, ret1);
 		Assert.assertEquals(true, ret2);
+	}
+
+	@Test
+	public void simpleDependentCompoundTest() {
+		AtomicTransaction first = new AtomicTransaction(0, 256, 500);
+		AtomicTransaction second = new AtomicTransaction(256, 1, 1000);
+
+		CompoundTransaction trans = new CompoundTransaction(first);
+		trans.add(second);
+
+		boolean ret = tsm.processTransaction(trans);
+
+		Assert.assertEquals(500, db.getAccount(0).getBalance());
+		Assert.assertEquals(4500, db.getAccount(256).getBalance());
+		Assert.assertEquals(11000, db.getAccount(1).getBalance());
+
+		Assert.assertEquals(1, tsm.getCount());
+		Assert.assertEquals(true, ret);
 	}
 }

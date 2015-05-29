@@ -13,22 +13,23 @@ public class TransactionManager {
 	//This method was kept intact so as not to break any legacy code
 	public boolean processTransaction(int sourceAccountNumber, int destinationAccountNumber, long amount) {
 
-		Account source = db.getAccount(sourceAccountNumber);
-		Account destination = db.getAccount(destinationAccountNumber);
 		Transaction trans = new AtomicTransaction(sourceAccountNumber, destinationAccountNumber, amount);
-
-		long time = System.currentTimeMillis();
-
-		if((time < source.getLastTransaction() + 15000) || (time < destination.getLastTransaction() + 15000)) {
-			System.out.println(ClientStrings.TRANS_LOCK);
-			return false;
-		}
 
 		try {
 			trans.validate();
 		}
 		catch (TransactionException t) {
 			System.out.println(t.getMessage());
+			return false;
+		}
+
+		Account source = db.getAccount(sourceAccountNumber);
+		Account destination = db.getAccount(destinationAccountNumber);
+
+		long time = System.currentTimeMillis();
+
+		if((time < source.getLastTransaction() + 15000) || (time < destination.getLastTransaction() + 15000)) {
+			System.out.println(ClientStrings.TRANS_LOCK);
 			return false;
 		}
 
@@ -91,7 +92,6 @@ public class TransactionManager {
 		}
 	}
 
-	
 	public int getCount() {
 		return numTransactionsProcessed;
 	}
