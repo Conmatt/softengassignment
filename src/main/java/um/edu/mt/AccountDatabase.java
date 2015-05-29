@@ -56,6 +56,18 @@ public class AccountDatabase {
 			return null;
 		}
 	}
+
+	public boolean contains(int accountNumber) {
+
+		Integer number = new Integer(accountNumber);
+
+		if(db.containsKey(number)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	
 	public int getSize() {
 		return size;
@@ -65,7 +77,3 @@ public class AccountDatabase {
 		db.put(new Integer(update.getNumber()), update);
 	}
 }
-
-	
-	
-
